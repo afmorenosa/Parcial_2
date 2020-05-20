@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Document</title>
+</head>
+<body>
+  <div class="region">
+    <canvas id="animatable"></canvas>
+    <canvas id="theta-1"></canvas>
+    <canvas id="theta-2"></canvas>
+  </div>
+  <div class="region">
+    <canvas id="non-friction"></canvas>
+    <canvas id="theta-1-N"></canvas>
+    <canvas id="theta-2-N"></canvas>
+  </div>
+  <script src="/js/pendulum.js"></script>
+  <script src="/js/animatable.js"></script>
+  <script src="/js/non-friction.js"></script>
+  <script>
+    var timer = setInterval(function () {
+      setAnimatableReset();
+      setNonFrictionReset();
+    }, 10);
+  </script>
+</body>
+</html>

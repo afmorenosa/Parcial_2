@@ -1,0 +1,42 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.region {
+  height: 50%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+}
+
+canvas {
+  width: 50%;
+  box-sizing: border-box;
+  border: 2px solid #696767;
+  position: absolute;
+}
+
+#animatable,
+#non-friction {
+  height: 100%;
+  top: 0px;
+  bottom: 0px;
+}
+
+#theta-1, #theta-2,
+#theta-1-N, #theta-2-N {
+  height: 50%;
+  right: 0pt;
+}
+
+#theta-1, #theta-1-N {
+  top: 0px;
+}
+
+#theta-2, #theta-2-N {
+  bottom: 0px;
+}

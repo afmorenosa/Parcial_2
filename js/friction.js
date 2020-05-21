@@ -4,15 +4,16 @@
 *
 * Lorena Bucurú Rodriguez; Andŕes Felipe Moreno Sarria
 */
-var g = 9.81;  // Gravedad
-var timeN = 0;  // Tiempo inicial
+var g = 9.81;  // Gravedad en cm/s
+var timeF = 0;  // Tiempo inicial
+var b = 200;
 
 /**
 * Este objeto corresponde al "canvas" o lienzo en el cual se realizará la
 * animación
 */
-var nonFriction = {
-  element: document.getElementById("non-friction"),
+var friction = {
+  element: document.getElementById("friction"),
   width: 1000,
   height: 500,
 
@@ -23,8 +24,8 @@ var nonFriction = {
   },
 };
 
-var nonFrictionPhaseSpace = {
-  element: document.getElementById("phase-N"),
+var frictionPhaseSpace = {
+  element: document.getElementById("phase"),
   width: 300,
   height: 300,
 
@@ -44,9 +45,9 @@ var nonFrictionPhaseSpace = {
   }
 };
 
-var nonFrictionGraphs = {
+var frictionGraphs = {
   graphTheta1: {
-    element: document.getElementById("theta-1-N"),
+    element: document.getElementById("theta-1"),
     width: 1000,
     height: 200,
 
@@ -93,7 +94,7 @@ var nonFrictionGraphs = {
     }
   },
   graphTheta2: {
-    element: document.getElementById("theta-2-N"),
+    element: document.getElementById("theta-2"),
     width: 1000,
     height: 200,
 
@@ -141,57 +142,59 @@ var nonFrictionGraphs = {
   }
 };
 
-nonFriction.init();  // Inizcializar el nonFriction
-nonFrictionGraphs.graphTheta1.init();
-nonFrictionGraphs.graphTheta2.init();
-nonFrictionPhaseSpace.init();
+friction.init();  // Inizcializar el friction
+frictionGraphs.graphTheta1.init();
+frictionGraphs.graphTheta2.init();
+frictionPhaseSpace.init();
 
+// pendulo 1
+var pendulum1FN = new Pendulum(1, [0,0], 200, -20, 0, "#3cb0f8");
 
-// pendulo 1 sin aproximación
-var pendulum1NN = new Pendulum(1, [0,0], 200, -20, 0, "#3cb0f8");
-
-// pendulo 2 sin aproximación
-var pendulum2NN = new Pendulum(1, [pendulum1NN.length*
-  Math.sin(pendulum1NN.angle), pendulum1NN.length*Math.cos(pendulum1NN.angle)],
+// pendulo 2
+var pendulum2FN = new Pendulum(1, [pendulum1FN.length*
+  Math.sin(pendulum1FN.angle), pendulum1FN.length*Math.cos(pendulum1FN.angle)],
   200, 15, 0, "#3cb0f8");
 
 // pendulo 1 con aproximación
-var pendulum1NA = new Pendulum(1, [0,0], 200, -20, 0, "#f25353");
+var pendulum1FA = new Pendulum(1, [0,0], 200, -20, 0, "#f25353");
 
 // pendulo 2 con aproximación
-var pendulum2NA = new Pendulum(1, [pendulum1NA.length*
-  Math.sin(pendulum1NA.angle), pendulum1NA.length*Math.cos(pendulum1NA.angle)],
+var pendulum2FA = new Pendulum(1, [pendulum1FA.length*
+  Math.sin(pendulum1FA.angle), pendulum1FA.length*Math.cos(pendulum1FA.angle)],
   200, 15, 0, "#f25353");
+
+
 
 /**
 * Función para actualizar la pantalla
 */
-function setNonFrictionReset () {
-  nonFriction.context.clearRect(0, 0, nonFriction.width, nonFriction.height);
+function setFrictionReset () {
+  friction.context.clearRect(0, 0, friction.width, friction.height);
 
   var h = 0.05;
 
-  RK4(pendulum1NN, pendulum2NN, h, timeN, dThetaNN1, dOmegaNN1, dThetaNN2,
-    dOmegaNN2);
+  RK4(pendulum1FN, pendulum2FN, h, timeF, dThetaFN1, dOmegaFN1, dThetaFN2,
+    dOmegaFN2);
 
-  RK4(pendulum1NA, pendulum2NA, h, timeN, dThetaNA1, dOmegaNA1, dThetaNA2,
-    dOmegaNA2);
+  RK4(pendulum1FA, pendulum2FA, h, timeF, dThetaFA1, dOmegaFA1, dThetaFA2,
+    dOmegaFA2);
 
-  timeN += h;
-  pendulum2NN.draw(nonFriction);
-  pendulum1NN.draw(nonFriction);
-  pendulum2NA.draw(nonFriction);
-  pendulum1NA.draw(nonFriction);
 
-  nonFrictionGraphs.graphTheta1.grid(timeN);
-  nonFrictionGraphs.graphTheta1.draw(pendulum1NN);
-  nonFrictionGraphs.graphTheta1.draw(pendulum1NA);
-  nonFrictionGraphs.graphTheta1.step();
-  nonFrictionGraphs.graphTheta2.grid(timeN);
-  nonFrictionGraphs.graphTheta2.draw(pendulum2NN);
-  nonFrictionGraphs.graphTheta2.draw(pendulum2NA);
-  nonFrictionGraphs.graphTheta2.step();
+  timeF += h;
+  pendulum2FN.draw(friction);
+  pendulum1FN.draw(friction);
+  pendulum2FA.draw(friction);
+  pendulum1FA.draw(friction);
 
-  nonFrictionPhaseSpace.phaseDraw(pendulum1NN, pendulum2NN);
-  nonFrictionPhaseSpace.phaseDraw(pendulum1NA, pendulum2NA);
+  frictionGraphs.graphTheta1.grid(timeF);
+  frictionGraphs.graphTheta1.draw(pendulum1FN);
+  frictionGraphs.graphTheta1.draw(pendulum1FA);
+  frictionGraphs.graphTheta1.step();
+  frictionGraphs.graphTheta2.grid(timeF);
+  frictionGraphs.graphTheta2.draw(pendulum2FN);
+  frictionGraphs.graphTheta2.draw(pendulum2FA);
+  frictionGraphs.graphTheta2.step();
+
+  frictionPhaseSpace.phaseDraw(pendulum1FN, pendulum2FN);
+  frictionPhaseSpace.phaseDraw(pendulum1FA, pendulum2FA);
 }

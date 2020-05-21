@@ -3,29 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <link rel="stylesheet" href="/css/style.css">
   <title>Document</title>
 </head>
 <body>
   <div class="region">
-    <canvas id="animatable"></canvas>
-    <canvas id="theta-1"></canvas>
-    <canvas id="theta-2"></canvas>
+    <canvas id="non-friction"></canvas>
+    <span class="title-animation">Sin fricción</span>
+    <span class="label-non-linear">Sin aproximación</span>
+    <span class="label-linear">Con aproximación</span>
+    <canvas id="theta-1-N"></canvas>
+    <span class="title-theta-1">\(\theta_1  \text{ vs } t\)</span>
+    <canvas id="theta-2-N"></canvas>
+    <span class="title-theta-2">\(\theta_2   \text{ vs } t\)</span>
+    <canvas id="phase-N"></canvas>
+    <span class="title-phase-space">\(\theta_2   \text{ vs } \theta_1\)</span>
   </div>
   <div class="region">
-    <canvas id="non-friction"></canvas>
-    <canvas id="theta-1-N"></canvas>
-    <canvas id="theta-2-N"></canvas>
+    <canvas id="friction"></canvas>
+    <span class="title-animation">Con fricción</span>
+    <span class="label-non-linear">Sin aproximación</span>
+    <span class="label-linear">Con aproximación</span>
+    <canvas id="theta-1"></canvas>
+    <span class="title-theta-1">\(\theta_1  \text{ vs } t\)</span>
+    <canvas id="theta-2"></canvas>
+    <span class="title-theta-2">\(\theta_2  \text{ vs } t\)</span>
+    <canvas id="phase"></canvas>
+    <span class="title-phase-space">\(\theta_2   \text{ vs } \theta_1\)</span>
   </div>
+  <script src="/js/eq-nonfriction-nonapproximated.js"></script>
+  <script src="/js/eq-nonfriction-approximated.js"></script>
+  <script src="/js/eq-friction-nonapproximated.js"></script>
+  <script src="/js/eq-friction-approximated.js"></script>
+  <script src="/js/RK4.js"></script>
   <script src="/js/pendulum.js"></script>
-  <script src="/js/animatable.js"></script>
   <script src="/js/non-friction.js"></script>
+  <script src="/js/friction.js"></script>
   <script>
     var timer = setInterval(function () {
-      setAnimatableReset();
+      setFrictionReset();
       setNonFrictionReset();
-    }, 10);
+    }, 5);
   </script>
 </body>
 </html>

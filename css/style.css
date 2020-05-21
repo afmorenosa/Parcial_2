@@ -20,7 +20,49 @@ canvas {
   position: absolute;
 }
 
-#animatable,
+.title-animation, .title-theta-1,
+.title-theta-2, .title-phase-space,
+.label-linear, .label-non-linear  {
+  position: absolute;
+  padding: 16px;
+  color: #27977f;
+  font-weight: bold;
+}
+
+.title-animation {
+  top: 0px;
+  left: 0px;
+}
+
+.title-theta-1,
+.title-theta-2 {
+  left: 50%;
+}
+
+.title-theta-1{
+  top: 0;
+}
+
+.title-theta-2 {
+  top: 50%;
+}
+
+.title-phase-space {
+  top: 0;
+  right: 0;
+}
+
+.label-linear {
+  color: #f25353;
+  bottom: 0;
+}
+
+.label-non-linear {
+  color: #3cb0f8;
+  bottom: 30px;
+}
+
+#friction,
 #non-friction {
   height: 100%;
   top: 0px;
@@ -29,8 +71,9 @@ canvas {
 
 #theta-1, #theta-2,
 #theta-1-N, #theta-2-N {
+  width:25%;
   height: 50%;
-  right: 0pt;
+  right: 25%;
 }
 
 #theta-1, #theta-1-N {
@@ -39,4 +82,11 @@ canvas {
 
 #theta-2, #theta-2-N {
   bottom: 0px;
+}
+
+#phase-N, #phase {
+  width:25%;
+  height: 100%;
+  bottom: 0px;
+  right: 0;
 }
